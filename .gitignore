@@ -1,0 +1,7 @@
+tmp
+p4src/build
+app/target
+app/.idea
+app/stratum-pipeconf.iml
+app/src/main/resources/
+.DS_Store
