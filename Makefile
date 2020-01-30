@@ -1,10 +1,10 @@
-ONOS_IMG := onosproject/onos:2.2.0
+ONOS_IMG := onosproject/onos:2.2.1-b5
 P4RT_SH_IMG := p4lang/p4runtime-sh:latest
 P4C_IMG := opennetworking/p4c:stable
 MN_STRATUM_IMG := opennetworking/mn-stratum:latest
 MAVEN_IMG := maven:3.6.1-jdk-11-slim
 
-ONOS_SHA := sha256:c1d18e6957a785d0234855eb8c70909bfc68849338f0567e12a6ae7ce6f4ba91
+ONOS_SHA := sha256:9cbb5f66db8111d8dab1ba90330f476cb93c166e5c2ea051fc876e8dafebcf96
 P4RT_SH_SHA := sha256:6ae50afb5bde620acb9473ce6cd7b990ff6cc63fe4113cf5584c8e38fe42176c
 P4C_SHA := sha256:8f9d27a6edf446c3801db621359fec5de993ebdebc6844d8b1292e369be5dfea
 MN_STRATUM_SHA := sha256:ae7c59885509ece8062e196e6a8fb6aa06386ba25df646ed27c765d92d131692
@@ -15,7 +15,8 @@ curr_dir := $(patsubst %/,%,$(dir $(mkfile_path)))
 curr_dir_sha := $(shell echo -n "$(curr_dir)" | shasum | cut -c1-7)
 
 app_build_container_name := app-build-${curr_dir_sha}
-onos_url := http://localhost:8181/onos
+onos_host := localhost
+onos_url := http://${onos_host}:8181/onos
 onos_curl := curl --fail -sSL --user onos:rocks --noproxy localhost
 app_name := org.onosproject.stratum-pipeconf
 
