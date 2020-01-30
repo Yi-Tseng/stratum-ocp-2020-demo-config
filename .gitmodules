@@ -1,0 +1,3 @@
+[submodule "fabric-tofino"]
+	path = fabric-tofino
+	url = git@github.com:opencord/fabric-tofino.git
