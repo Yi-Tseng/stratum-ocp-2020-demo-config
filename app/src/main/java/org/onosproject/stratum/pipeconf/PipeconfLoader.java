@@ -6,6 +6,7 @@
 
 package org.onosproject.stratum.pipeconf;
 
+import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Lists;
 import org.onosproject.core.ApplicationId;
 import org.onosproject.core.CoreService;
@@ -26,6 +27,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.net.URL;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -76,14 +78,15 @@ public class PipeconfLoader {
     }
 
     private Collection<PiPipeconf> buildAllPipeconfs() {
-        List<PiPipeconf> pipeconfs = Lists.newArrayList();
-
         try {
-            pipeconfs.add(bmv2Pipeconf());
+            return ImmutableSet.of(
+                    bmv2Pipeconf(),
+                    fpmPipeconf()
+            );
         } catch (FileNotFoundException e) {
             log.warn(e.getMessage());
         }
-        return pipeconfs;
+        return Collections.emptySet();
     }
 
     private PiPipeconf bmv2Pipeconf() throws FileNotFoundException {
@@ -104,6 +107,26 @@ public class PipeconfLoader {
                 .addExtension(PiPipeconf.ExtensionType.CPU_PORT_TXT, cpuPortUrl)
                 .addBehaviour(PiPipelineInterpreter.class, BcmPipelineInterpreter.class)
                 .addBehaviour(Pipeliner.class, BcmPipeliner.class)
+                .build();
+    }
+
+    private PiPipeconf fpmPipeconf() throws FileNotFoundException {
+        final URL p4InfoUrl = this.getClass().getResource("/fpm/p4info.txt");
+        final URL cpuPortUrl = this.getClass().getResource("/fpm/cpu-port.txt");
+        final URL fpmBinUrl = this.getClass().getResource("/fpm/main.pb.bin");
+
+        checkFileExists(p4InfoUrl, "/fpm/p4info.txt");
+        checkFileExists(cpuPortUrl, "/fpm/cpu-port.txt");
+        checkFileExists(fpmBinUrl, "/fpm/pipeline_config.bin");
+
+        return DefaultPiPipeconf.builder()
+                .withId(new PiPipeconfId(PIPELINE_APP_NAME + ".fpm"))
+                .withPipelineModel(parseP4Info(p4InfoUrl))
+                .addBehaviour(PiPipelineInterpreter.class, BcmPipelineInterpreter.class)
+                .addBehaviour(Pipeliner.class, BcmPipeliner.class)
+                .addExtension(PiPipeconf.ExtensionType.P4_INFO_TEXT, p4InfoUrl)
+                .addExtension(PiPipeconf.ExtensionType.CPU_PORT_TXT, cpuPortUrl)
+                .addExtension(PiPipeconf.ExtensionType.STRATUM_FPM_BIN, fpmBinUrl)
                 .build();
     }
 
