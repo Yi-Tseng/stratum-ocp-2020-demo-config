@@ -160,3 +160,9 @@ app-reload: app-uninstall app-install
 
 mn-single:
 	docker run --privileged --rm -it -v /tmp/mn-stratum:/tmp -p 50001:50001 ${MN_STRATUM_IMG}
+
+fabric-tofino-pipeconf:
+	$(MAKE) -C fabric-tofino pipeconf
+
+fabric-tofino-pipeconf-install:
+	$(MAKE) -C fabric-tofino pipeconf-install ONOS_HOST=${onos_host}
