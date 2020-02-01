@@ -77,6 +77,13 @@ netcfg:
 		${onos_url}/v1/network/configuration -d@./mininet/netcfg.json
 	@echo
 
+netcfg-hw:
+	$(info *** Pushing netcfg.json to ONOS...)
+	${onos_curl} -X POST -H 'Content-Type:application/json' \
+		${onos_url}/v1/network/configuration -d@./mininet/netcfg-hw.json
+	@echo
+
+
 reset: stop
 	-rm -rf ./tmp
 
