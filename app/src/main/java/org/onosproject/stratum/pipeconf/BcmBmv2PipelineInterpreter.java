@@ -28,10 +28,12 @@ import org.onosproject.net.packet.DefaultInboundPacket;
 import org.onosproject.net.packet.InboundPacket;
 import org.onosproject.net.packet.OutboundPacket;
 import org.onosproject.net.pi.model.PiMatchFieldId;
-import org.onosproject.net.pi.model.PiPacketMetadataId;
 import org.onosproject.net.pi.model.PiPipelineInterpreter;
 import org.onosproject.net.pi.model.PiTableId;
-import org.onosproject.net.pi.runtime.*;
+import org.onosproject.net.pi.runtime.PiAction;
+import org.onosproject.net.pi.runtime.PiActionParam;
+import org.onosproject.net.pi.runtime.PiPacketMetadata;
+import org.onosproject.net.pi.runtime.PiPacketOperation;
 import org.onosproject.net.pi.service.PiPipeconfService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -47,15 +49,15 @@ import static java.util.stream.Collectors.toList;
 import static org.onlab.util.ImmutableByteSequence.copyFrom;
 import static org.onosproject.net.PortNumber.FLOOD;
 import static org.onosproject.net.flow.instructions.Instruction.Type.OUTPUT;
-import static org.onosproject.net.flow.instructions.L2ModificationInstruction.L2SubType.*;
 import static org.onosproject.net.flow.instructions.L2ModificationInstruction.L2SubType.MPLS_LABEL;
+import static org.onosproject.net.flow.instructions.L2ModificationInstruction.L2SubType.*;
 import static org.onosproject.net.pi.model.PiPacketOperationType.PACKET_OUT;
 import static org.onosproject.stratum.pipeconf.BcmPipelineConstants.*;
 import static org.onosproject.stratum.pipeconf.BcmPipelineUtils.l2Instruction;
 
-public class BcmPipelineInterpreter extends AbstractHandlerBehaviour implements PiPipelineInterpreter {
+public class BcmBmv2PipelineInterpreter extends AbstractHandlerBehaviour implements PiPipelineInterpreter {
 
-    private static final Logger log = LoggerFactory.getLogger(BcmPipelineInterpreter.class);
+    private static final Logger log = LoggerFactory.getLogger(BcmBmv2PipelineInterpreter.class);
     private static final ImmutableMap<Criterion.Type, PiMatchFieldId> CRITERION_MAP =
             ImmutableMap.<Criterion.Type, PiMatchFieldId>builder()
                     .put(Criterion.Type.IN_PORT, STANDARD_METADATA_INGRESS_PORT)
@@ -73,7 +75,7 @@ public class BcmPipelineInterpreter extends AbstractHandlerBehaviour implements 
             .build();
     private BcmPipelineCapabilities capabilities;
 
-    public BcmPipelineInterpreter() {
+    public BcmBmv2PipelineInterpreter() {
     }
 
     @Override
@@ -86,7 +88,7 @@ public class BcmPipelineInterpreter extends AbstractHandlerBehaviour implements 
             .orElse(null);
     }
 
-    public BcmPipelineInterpreter(BcmPipelineCapabilities capabilities) {
+    public BcmBmv2PipelineInterpreter(BcmPipelineCapabilities capabilities) {
         this.capabilities = capabilities;
     }
 
@@ -199,11 +201,10 @@ public class BcmPipelineInterpreter extends AbstractHandlerBehaviour implements 
 
     @Override
     public Collection<PiPacketOperation> mapOutboundPacket(OutboundPacket packet) throws PiInterpreterException {
-
+        DeviceId deviceId = packet.sendThrough();
         TrafficTreatment treatment = packet.treatment();
 
-        // Packet-out in main.p4 supports only setting the output port,
-        // i.e. we only understand OUTPUT instructions.
+        // fabric.p4 supports only OUTPUT instructions.
         List<Instructions.OutputInstruction> outInstructions = treatment
                 .allInstructions()
                 .stream()
@@ -220,101 +221,49 @@ public class BcmPipelineInterpreter extends AbstractHandlerBehaviour implements 
         for (Instructions.OutputInstruction outInst : outInstructions) {
             if (outInst.port().isLogical() && !outInst.port().equals(FLOOD)) {
                 throw new PiInterpreterException(format(
-                        "Packet-out on logical port '%s' not supported",
-                        outInst.port()));
+                        "Output on logical port '%s' not supported", outInst.port()));
             } else if (outInst.port().equals(FLOOD)) {
-                // To emulate flooding, we create a packet-out operation for
-                // each switch port.
+                // Since fabric.p4 does not support flooding, we create a packet
+                // operation for each switch port.
                 final DeviceService deviceService = handler().get(DeviceService.class);
                 for (Port port : deviceService.getPorts(packet.sendThrough())) {
-                    builder.add(buildPacketOut(packet.data(), port.number().toLong()));
+                    builder.add(createPiPacketOperation(packet.data(), port.number().toLong()));
                 }
             } else {
-                // Create only one packet-out for the given OUTPUT instruction.
-                builder.add(buildPacketOut(packet.data(), outInst.port().toLong()));
+                builder.add(createPiPacketOperation(packet.data(), outInst.port().toLong()));
             }
         }
         return builder.build();
     }
 
-
-    /**
-     * Builds a pipeconf-specific packet-out instance with the given payload and
-     * egress port.
-     *
-     * @param pktData    packet payload
-     * @param portNumber egress port
-     * @return packet-out
-     * @throws PiInterpreterException if packet-out cannot be built
-     */
-    private PiPacketOperation buildPacketOut(ByteBuffer pktData, long portNumber)
-            throws PiInterpreterException {
-
-        // Make sure port number can fit in v1model port metadata bitwidth.
-        final ImmutableByteSequence portBytes;
-        try {
-            portBytes = copyFrom(portNumber).fit(PORT_BITWIDTH);
-        } catch (ImmutableByteSequence.ByteSequenceTrimException e) {
-            throw new PiInterpreterException(format(
-                    "Port number %d too big, %s", portNumber, e.getMessage()));
-        }
-
-        // Create metadata instance for egress port.
-        final String outPortMetadataName = "egress_physical_port";
-        final PiPacketMetadata outPortMetadata = PiPacketMetadata.builder()
-                .withId(PiPacketMetadataId.of(outPortMetadataName))
-                .withValue(portBytes)
-                .build();
-
-        // Build packet out.
-        return PiPacketOperation.builder()
-                .withType(PACKET_OUT)
-                .withData(copyFrom(pktData))
-                .withMetadata(outPortMetadata)
-                .build();
-    }
-
     @Override
     public InboundPacket mapInboundPacket(PiPacketOperation packetIn, DeviceId deviceId) throws PiInterpreterException {
-
-        // Find the ingress_port metadata.
-        final String inportMetadataName = "ingress_physical_port";
-        Optional<PiPacketMetadata> inportMetadata = packetIn.metadatas()
-                .stream()
-                .filter(meta -> meta.id().id().equals(inportMetadataName))
-                .findFirst();
-
-        if (inportMetadata.isEmpty()) {
-            throw new PiInterpreterException(format(
-                    "Missing metadata '%s' in packet-in received from '%s': %s",
-                    inportMetadataName, deviceId, packetIn));
-        }
-
-        // Build ONOS InboundPacket instance with the given ingress port.
-
-        // 1. Parse packet-in object into Ethernet packet instance.
-        final byte[] payloadBytes = packetIn.data().asArray();
-        final ByteBuffer rawData = ByteBuffer.wrap(payloadBytes);
-        final Ethernet ethPkt;
+        // Assuming that the packet is ethernet, which is fine since fabric.p4
+        // can deparse only ethernet packets.
+        Ethernet ethPkt;
         try {
-            ethPkt = Ethernet.deserializer().deserialize(
-                    payloadBytes, 0, packetIn.data().size());
+            ethPkt = Ethernet.deserializer().deserialize(packetIn.data().asArray(), 0,
+                    packetIn.data().size());
         } catch (DeserializationException dex) {
             throw new PiInterpreterException(dex.getMessage());
         }
 
-        // 2. Get ingress port
-        final ImmutableByteSequence portBytes;
-        try {
-            portBytes = inportMetadata.get().value().fit(PORT_BITWIDTH);
-        } catch (ImmutableByteSequence.ByteSequenceTrimException e) {
-            throw new PiInterpreterException(e.getMessage());
-        }
-        final short portNum = portBytes.asReadOnlyBuffer().getShort();
-        final ConnectPoint receivedFrom = new ConnectPoint(
-                deviceId, PortNumber.portNumber(portNum));
+        // Returns the ingress port packet metadata.
+        Optional<PiPacketMetadata> packetMetadata = packetIn.metadatas()
+                .stream().filter(m -> m.id().equals(HDR_PACKET_IN_INGRESS_PHYSICAL_PORT))
+                .findFirst();
 
-        return new DefaultInboundPacket(receivedFrom, ethPkt, rawData);
+        if (packetMetadata.isPresent()) {
+            ImmutableByteSequence portByteSequence = packetMetadata.get().value();
+            short s = portByteSequence.asReadOnlyBuffer().getShort();
+            ConnectPoint receivedFrom = new ConnectPoint(deviceId, PortNumber.portNumber(s));
+            ByteBuffer rawData = ByteBuffer.wrap(packetIn.data().asArray());
+            return new DefaultInboundPacket(receivedFrom, ethPkt, rawData);
+        } else {
+            throw new PiInterpreterException(format(
+                    "Missing metadata '%s' in packet-in received from '%s': %s",
+                    HDR_PACKET_IN_INGRESS_PHYSICAL_PORT, deviceId, packetIn));
+        }
     }
 
     @Override

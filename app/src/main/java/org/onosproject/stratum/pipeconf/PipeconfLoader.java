@@ -105,7 +105,7 @@ public class PipeconfLoader {
                 .addExtension(PiPipeconf.ExtensionType.BMV2_JSON, bmv2JsonUrl)
                 .addExtension(PiPipeconf.ExtensionType.P4_INFO_TEXT, p4InfoUrl)
                 .addExtension(PiPipeconf.ExtensionType.CPU_PORT_TXT, cpuPortUrl)
-                .addBehaviour(PiPipelineInterpreter.class, BcmPipelineInterpreter.class)
+                .addBehaviour(PiPipelineInterpreter.class, BcmBmv2PipelineInterpreter.class)
                 .addBehaviour(Pipeliner.class, BcmPipeliner.class)
                 .build();
     }
