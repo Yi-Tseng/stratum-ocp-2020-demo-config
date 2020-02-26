@@ -2,7 +2,7 @@
   "devices": {
     "device:fo_spine_1": {
       "segmentrouting": {
-        "name": "fo_spine_1",
+        "name": "cassini-4",
         "ipv4NodeSid": 101,
         "ipv4Loopback": "192.168.0.101",
         "ipv6NodeSid": 112,
@@ -12,6 +12,7 @@
         "adjacencySids": []
       },
       "basic": {
+        "name": "cassini-4",
         "managementAddress": "grpc://10.128.13.124:28000?device_id=1",
         "driver": "stratum-fpm",
         "pipeconf": "org.onosproject.stratum-pipeconf.fpm-odtn",
@@ -20,7 +21,7 @@
     },
     "device:fo_spine_2": {
       "segmentrouting": {
-        "name": "fo_spine_2",
+        "name": "cassini-2",
         "ipv4NodeSid": 102,
         "ipv4Loopback": "192.168.0.102",
         "ipv6NodeSid": 112,
@@ -30,6 +31,7 @@
         "adjacencySids": []
       },
       "basic": {
+        "name": "cassini-2",
         "managementAddress": "grpc://10.128.200.3:28001?device_id=1",
         "driver": "stratum-fpm",
         "pipeconf": "org.onosproject.stratum-pipeconf.fpm-odtn",
@@ -38,7 +40,7 @@
     },
     "device:co_spine_1": {
       "segmentrouting": {
-        "name": "co_spine_1",
+        "name": "cassini-3",
         "ipv4NodeSid": 201,
         "ipv4Loopback": "192.168.0.201",
         "ipv6NodeSid": 211,
@@ -48,6 +50,7 @@
         "adjacencySids": []
       },
       "basic": {
+        "name": "cassini-3",
         "managementAddress": "grpc://10.128.13.123:28000?device_id=1",
         "driver": "stratum-fpm",
         "pipeconf": "org.onosproject.stratum-pipeconf.fpm-odtn",
@@ -56,7 +59,7 @@
     },
     "device:co_spine_2": {
       "segmentrouting": {
-        "name": "co_spine_2",
+        "name": "cassini-1",
         "ipv4NodeSid": 202,
         "ipv4Loopback": "192.168.0.202",
         "ipv6NodeSid": 212,
@@ -66,6 +69,7 @@
         "adjacencySids": []
       },
       "basic": {
+        "name": "cassini-1",
         "managementAddress": "grpc://10.128.13.125:28001?device_id=1",
         "driver": "stratum-fpm",
         "pipeconf": "org.onosproject.stratum-pipeconf.fpm-odtn",
@@ -74,7 +78,7 @@
     },
     "device:fo_leaf_1": {
       "segmentrouting": {
-        "name": "fo_leaf_1",
+        "name": "bf2556x-1",
         "ipv4NodeSid": 131,
         "ipv4Loopback": "192.168.0.131",
         "ipv6NodeSid": 141,
@@ -84,6 +88,7 @@
         "adjacencySids": []
       },
       "basic": {
+        "name": "bf2556x-1",
         "managementAddress": "grpc://10.128.13.122:28000?device_id=1",
         "driver": "stratum-tofino",
         "pipeconf": "org.opencord.fabric.tofino.montara_sde_9_0_0",
@@ -92,7 +97,7 @@
     },
     "device:fo_leaf_2": {
       "segmentrouting": {
-        "name": "fo_leaf_2",
+        "name": "bf2556x-2",
         "ipv4NodeSid": 132,
         "ipv4Loopback": "192.168.0.132",
         "ipv6NodeSid": 142,
@@ -102,6 +107,7 @@
         "adjacencySids": []
       },
       "basic": {
+        "name": "bf2556x-2",
         "managementAddress": "grpc://10.128.13.121:28000?device_id=1",
         "driver": "stratum-tofino",
         "pipeconf": "org.opencord.fabric.tofino.montara_sde_9_0_0",
@@ -110,7 +116,7 @@
     },
     "device:fo_leaf_3": {
       "segmentrouting": {
-        "name": "fo_leaf_3",
+        "name": "as6712",
         "ipv4NodeSid": 133,
         "ipv4Loopback": "192.168.0.133",
         "ipv6NodeSid": 143,
@@ -120,6 +126,7 @@
         "adjacencySids": []
       },
       "basic": {
+        "name": "as6712",
         "managementAddress": "grpc://10.128.13.203:28000?device_id=1",
         "driver": "stratum-fpm",
         "pipeconf": "org.onosproject.stratum-pipeconf.fpm",
@@ -128,7 +135,7 @@
     },
     "device:fo_leaf_4": {
       "segmentrouting": {
-        "name": "fo_leaf_4",
+        "name": "D5254",
         "ipv4NodeSid": 134,
         "ipv4Loopback": "192.168.0.134",
         "ipv6NodeSid": 144,
@@ -138,6 +145,7 @@
         "adjacencySids": []
       },
       "basic": {
+        "name": "D5254",
         "managementAddress": "grpc://10.128.13.111:28000?device_id=1",
         "driver": "stratum-tofino",
         "pipeconf": "org.opencord.fabric.tofino.montara_sde_9_0_0",
@@ -146,7 +154,7 @@
     },
     "device:co_leaf_1": {
       "segmentrouting": {
-        "name": "co_leaf_1",
+        "name": "BF60604X",
         "ipv4NodeSid": 231,
         "ipv4Loopback": "192.168.0.231",
         "ipv6NodeSid": 241,
@@ -156,6 +164,7 @@
         "adjacencySids": []
       },
       "basic": {
+        "name": "BF60604X",
         "managementAddress": "grpc://10.128.13.116:28000?device_id=1",
         "driver": "stratum-tofino",
         "pipeconf": "org.opencord.fabric.tofino.mavericks_sde_9_0_0",
@@ -164,7 +173,7 @@
     },
     "device:co_leaf_2": {
       "segmentrouting": {
-        "name": "co_leaf_2",
+        "name": "as7712",
         "ipv4NodeSid": 232,
         "ipv4Loopback": "192.168.0.232",
         "ipv6NodeSid": 242,
@@ -174,6 +183,7 @@
         "adjacencySids": []
       },
       "basic": {
+        "name": "as7712",
         "managementAddress": "grpc://10.128.13.241:28000?device_id=1",
         "driver": "stratum-fpm",
         "pipeconf": "org.onosproject.stratum-pipeconf.fpm",
@@ -182,7 +192,7 @@
     },
     "device:co_leaf_3": {
       "segmentrouting": {
-        "name": "co_leaf_3",
+        "name": "z9100",
         "ipv4NodeSid": 233,
         "ipv4Loopback": "192.168.0.233",
         "ipv6NodeSid": 243,
@@ -192,6 +202,7 @@
         "adjacencySids": []
       },
       "basic": {
+        "name": "z9100",
         "managementAddress": "grpc://10.128.13.113:28000?device_id=1",
         "driver": "stratum-fpm",
         "pipeconf": "org.onosproject.stratum-pipeconf.fpm",
