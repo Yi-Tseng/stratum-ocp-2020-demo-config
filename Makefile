@@ -147,24 +147,6 @@ _mvn_package:
 	@mkdir -p app/target
 	@docker start -a -i ${app_build_container_name}
 
-app-build: p4-build-bmv2 _copy_p4c_out _create_mvn_container _mvn_package
-	$(info *** ONOS app .oar package created succesfully)
-	@ls -1 app/target/*.oar
-
-app-install:
-	$(info *** Installing and activating app in ONOS...)
-	${onos_curl} -X POST -HContent-Type:application/octet-stream \
-		'${onos_url}/v1/applications?activate=true' \
-		--data-binary @app/target/stratum-pipeconf-1.0-SNAPSHOT.oar
-	@echo
-
-app-uninstall:
-	$(info *** Uninstalling app from ONOS (if present)...)
-	-${onos_curl} -X DELETE ${onos_url}/v1/applications/${app_name}
-	@echo
-
-app-reload: app-uninstall app-install
-
 mn-single:
 	docker run --privileged --rm -it -v /tmp/mn-stratum:/tmp -p 50001:50001 ${MN_STRATUM_IMG}
 

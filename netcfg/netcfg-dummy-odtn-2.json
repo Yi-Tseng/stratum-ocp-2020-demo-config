@@ -1,0 +1,30 @@
+{
+  "devices": {
+    "device:dummycassini": {
+      "basic": {
+        "managementAddress": "grpc://localhost:28000?device_id=1",
+        "driver": "stratum-fpm",
+        "pipeconf": "org.onosproject.stratum-pipeconf.fpm-odtn"
+      }
+    },
+    "device:dummycassini2": {
+      "basic": {
+        "managementAddress": "grpc://localhost:28001?device_id=1",
+        "driver": "stratum-fpm",
+        "pipeconf": "org.onosproject.stratum-pipeconf.fpm-odtn"
+      }
+    }
+  },
+  "links": {
+    "device:dummycassini/3-device:dummycassini2/3":{
+      "basic": {
+        "type": "OPTICAL"
+      }
+    },
+    "device:dummycassini2/3-device:dummycassini/3":{
+      "basic": {
+        "type": "OPTICAL"
+      }
+    }
+  }
+}

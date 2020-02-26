@@ -11,7 +11,7 @@
           }
         ]
       },
-      "device:z9100/40": {
+      "device:d5254/176": {
         "interfaces": [
           {
             "name": "h2",
@@ -41,6 +41,23 @@
           "pipeconf": "org.opencord.fabric.tofino.mavericks_sde_9_0_0"
         }
       },
+      "device:d5254": {
+        "segmentrouting": {
+          "name": "d5254",
+          "ipv4NodeSid": 226,
+          "ipv4Loopback": "192.168.0.226",
+          "ipv6NodeSid": 236,
+          "ipv6Loopback": "2000::c0a8:0226",
+          "routerMac": "00:00:00:00:02:26",
+          "isEdgeRouter": true,
+          "adjacencySids": []
+        },
+        "basic": {
+          "managementAddress": "grpc://10.128.13.111:28000?device_id=1",
+          "driver": "stratum-tofino",
+          "pipeconf": "org.opencord.fabric.tofino.montara_sde_9_0_0"
+        }
+      },
       "device:z9100": {
         "segmentrouting": {
           "name": "Z9100",
@@ -58,23 +75,6 @@
           "pipeconf": "org.onosproject.stratum-pipeconf.fpm"
         }
       },
-      "device:d5254": {
-        "segmentrouting": {
-          "name": "d5254",
-          "ipv4NodeSid": 226,
-          "ipv4Loopback": "192.168.0.226",
-          "ipv6NodeSid": 236,
-          "ipv6Loopback": "2000::c0a8:0226",
-          "routerMac": "00:00:00:00:02:26",
-          "isEdgeRouter": false,
-          "adjacencySids": []
-        },
-        "basic": {
-          "managementAddress": "grpc://10.128.13.111:28000?device_id=1",
-          "driver": "stratum-tofino",
-          "pipeconf": "org.opencord.fabric.tofino.montara_sde_9_0_0"
-        }
-      },
       "device:d7032": {
         "segmentrouting": {
           "name": "d7032",
@@ -83,7 +83,7 @@
           "ipv6NodeSid": 215,
           "ipv6Loopback": "2000::c0a8:0205",
           "routerMac": "00:00:00:00:02:05",
-          "isEdgeRouter": true,
+          "isEdgeRouter": false,
           "adjacencySids": []
         },
         "basic": {

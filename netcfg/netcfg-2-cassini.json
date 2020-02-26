@@ -1,0 +1,18 @@
+{
+  "devices": {
+    "device:cassini-3": {
+      "basic": {
+        "managementAddress": "grpc://10.128.13.123:28000?device_id=1",
+        "driver": "stratum-fpm",
+        "pipeconf": "org.onosproject.stratum-pipeconf.fpm-odtn"
+      }
+    },
+    "device:cassini-4": {
+      "basic": {
+        "managementAddress": "grpc://10.128.13.124:28000?device_id=1",
+        "driver": "stratum-fpm",
+        "pipeconf": "org.onosproject.stratum-pipeconf.fpm-odtn"
+      }
+    }
+  }
+}
