@@ -1,0 +1,24 @@
+{
+    "hosts": [
+        {
+            "name": "svc1",
+            "interfaces": [
+                { "name": "ens6f0", "address": "10.1.2.1/24", "gateway": "10.1.2.254" }
+            ],
+            "cmd": [
+                ["ip", "addr"],
+                ["ip", "route"]
+            ]
+        },
+        {
+            "name": "svc2",
+            "interfaces": [
+                { "name": "ens6f1", "address": "10.1.3.1/24", "gateway": "10.1.3.254" }
+            ],
+            "cmd": [
+                ["ip", "addr"],
+                ["ip", "route"]
+            ]
+        }
+    ]
+}

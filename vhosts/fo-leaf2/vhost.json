@@ -1,6 +1,16 @@
 {
     "hosts": [
         {
+            "name": "coredns",
+            "interfaces": [
+                { "name": "enp4s0f0", "address": "10.0.2.1/24", "gateway": "10.0.2.254" }
+            ],
+            "cmd": [
+                ["ip", "addr"],
+                ["ip", "route"]
+            ]
+        },
+        {
             "name": "dhcpd",
             "interfaces": [
                 { "name": "enp4s0f1", "address": "10.0.2.2/24", "gateway": "10.0.2.254" }

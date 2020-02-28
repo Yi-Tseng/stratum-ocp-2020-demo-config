@@ -1,0 +1,24 @@
+{
+    "hosts": [
+        {
+            "name": "h1",
+            "interfaces": [
+                { "name": "enp4s0f0", "address": "dhcp" }
+            ],
+            "cmd": [
+                ["ip", "addr"],
+                ["ip", "route"]
+            ]
+        },
+        {
+            "name": "h2",
+            "interfaces": [
+                { "name": "enp4s0f1", "address": "dhcp" }
+            ],
+            "cmd": [
+                ["ip", "addr"],
+                ["ip", "route"]
+            ]
+        }
+    ]
+}

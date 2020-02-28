@@ -6,6 +6,7 @@ import logging
 import os
 import subprocess
 import sys
+import re
 
 DHCLIENT_BIN = '/sbin/dhclient'
 DHCLIENT_PID = '/var/lib/dhcp/dhclient-%s-%s.pid'
@@ -135,7 +136,18 @@ def list_hosts():
     cmd = ['ip', 'netns', 'show']
     logger.debug(' '.join(cmd))
     stdout, stderr = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE).communicate()
-    return filter(None, stdout.decode('utf-8').split('\n'))
+    lines = stdout.decode('utf-8').split('\n')
+    hosts = []
+    # Format may be:
+    # [name]
+    # [name] (id: [nsid])
+    for line in lines:
+        hostname = line
+        if line and re.findall("\(id: \d+\)", hostname):
+            hostname = line.split(' ')[0]
+        hosts.append(hostname)
+
+    return hosts
 
 
 # list all pids inside a namespace
