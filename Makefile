@@ -22,6 +22,8 @@ onos_url := http://${onos_host}:8181/onos
 onos_curl := curl --fail -sSL --user onos:rocks --noproxy localhost
 app_name := org.onosproject.stratum-pipeconf
 
+.PHONY: netcfg
+
 default:
 	$(error Please specify a make target (see README.md))
 
@@ -74,13 +76,13 @@ mn-log:
 netcfg:
 	$(info *** Pushing netcfg.json to ONOS...)
 	${onos_curl} -X POST -H 'Content-Type:application/json' \
-		${onos_url}/v1/network/configuration -d@./mininet/demo/ports.json
+		${onos_url}/v1/network/configuration -d@./netcfg/ports.json
 	${onos_curl} -X POST -H 'Content-Type:application/json' \
-		${onos_url}/v1/network/configuration -d@./mininet/demo/hosts.json
+		${onos_url}/v1/network/configuration -d@./netcfg/hosts.json
 	${onos_curl} -X POST -H 'Content-Type:application/json' \
-		${onos_url}/v1/network/configuration -d@./mininet/demo/devices.json
+		${onos_url}/v1/network/configuration -d@./netcfg/devices.json
 	${onos_curl} -X POST -H 'Content-Type:application/json' \
-		${onos_url}/v1/network/configuration -d@./mininet/demo/dhcp-relay.json
+		${onos_url}/v1/network/configuration -d@./netcfg/dhcp-relay.json
 	@echo
 
 reset: stop

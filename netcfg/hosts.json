@@ -4,7 +4,7 @@
             "basic": {
                 "name": "H1",
                 "locType": "grid",
-                "gridX": 0,
+                "gridX": -100,
                 "gridY": 900,
                 "rackAddress": 1,
                 "roles": "host"
@@ -14,17 +14,17 @@
             "basic": {
                 "name": "H2",
                 "locType": "grid",
-                "gridX": 100,
-                "gridY": 1000,
+                "gridX": 0,
+                "gridY": 900,
                 "rackAddress": 1,
                 "roles": "host"
             }
         },
         "84:C7:8F:01:B6:C3/None": {
             "basic": {
-                "name": "H3",
+                "name": "CoreDNS",
                 "locType": "grid",
-                "gridX": 200,
+                "gridX": 100,
                 "gridY": 900,
                 "rackAddress": 1,
                 "roles": "host"
@@ -34,15 +34,15 @@
             "basic": {
                 "name": "DHCP Server",
                 "locType": "grid",
-                "gridX": 100,
-                "gridY": 1000,
+                "gridX": 200,
+                "gridY": 900,
                 "rackAddress": 1,
                 "roles": "host"
             }
         },
         "3C:FD:FE:9E:6F:C8/None": {
             "basic": {
-                "name": "CoreDNS",
+                "name": "Field Office Service A",
                 "locType": "grid",
                 "gridX": 300,
                 "gridY": 900,
@@ -52,7 +52,7 @@
         },
         "3C:FD:FE:9E:6F:C9/None": {
             "basic": {
-                "name": "CoreDNS",
+                "name": "Field Office Service B",
                 "locType": "grid",
                 "gridX": 500,
                 "gridY": 900,
@@ -60,21 +60,21 @@
                 "roles": "host"
             }
         },
-        "84:C7:8F:00:82:02/None": {
+        "0C:C4:7A:19:6E:20/None": {
             "basic": {
                 "name": "Central Office Service A",
                 "locType": "grid",
-                "gridX": 600,
+                "gridX": 800,
                 "gridY": 500,
                 "rackAddress": 1,
                 "roles": "host"
             }
         },
-        "84:C7:8F:00:82:03/None": {
+        "0C:C4:7A:19:6E:21/None": {
             "basic": {
                 "name": "Central Office Service B",
                 "locType": "grid",
-                "gridX": 600,
+                "gridX": 1000,
                 "gridY": 500,
                 "rackAddress": 1,
                 "roles": "host"

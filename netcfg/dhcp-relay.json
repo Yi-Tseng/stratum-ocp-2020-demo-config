@@ -1,10 +1,12 @@
 {
-    "apps" : {
-        "org.onosproject.dhcp-relay" : {
-            "default" : {
-                "dhcpServerConnectPoint": "device:fo_leaf_2/65",
-                "serverIps": ["10.0.2.2"]
-            }
+    "apps": {
+        "org.onosproject.dhcp-relay": {
+            "default": [
+                {
+                    "dhcpServerConnectPoint": "device:fo_leaf_2/65",
+                    "serverIps": ["10.0.2.2"]
+                }
+            ]
         }
     }
 }
