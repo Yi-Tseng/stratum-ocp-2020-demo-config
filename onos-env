@@ -1,0 +1,6 @@
+export OCI=10.128.13.88
+export OC1=10.128.13.88
+export ONOS_USER=cord
+export ONOS_APPS=drivers,openflow,gui2,pipelines.stratum-bcm,drivers.barefoot,roadm
+export ONOS_MN_PY=/Users/tsengyi/onos/tools/dev/mininet/onos.py
+export ONOS_SCENARIOS=/Users/tsengyi/onos/tools/test/scenarios
