@@ -79,6 +79,8 @@ netcfg:
 		${onos_url}/v1/network/configuration -d@./mininet/demo/hosts.json
 	${onos_curl} -X POST -H 'Content-Type:application/json' \
 		${onos_url}/v1/network/configuration -d@./mininet/demo/devices.json
+	${onos_curl} -X POST -H 'Content-Type:application/json' \
+		${onos_url}/v1/network/configuration -d@./mininet/demo/dhcp-relay.json
 	@echo
 
 reset: stop

@@ -25,7 +25,7 @@
     "device:fo_leaf_2/64": {
       "interfaces": [
         {
-          "name": "h3",
+          "name": "dns",
           "ips": [
             "10.0.2.254/24"
           ],
@@ -36,7 +36,7 @@
     "device:fo_leaf_2/65": {
       "interfaces": [
         {
-          "name": "h4",
+          "name": "dhcpd",
           "ips": [
             "10.0.2.254/24"
           ],
