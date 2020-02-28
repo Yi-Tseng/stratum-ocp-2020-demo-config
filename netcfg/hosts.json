@@ -72,7 +72,7 @@
         },
         "0C:C4:7A:19:6E:21/None": {
             "basic": {
-                "name": "Central Office Service B",
+                "name": "Upstream Router",
                 "locType": "grid",
                 "gridX": 1000,
                 "gridY": 500,
