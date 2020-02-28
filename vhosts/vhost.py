@@ -21,15 +21,19 @@ ZEBRA_SOCK = '/var/run/quagga/zebra-%s.sock'
 BGPD_BIN = '/usr/lib/quagga/bgpd'
 BGPD_PID = '/var/run/quagga/bgpd-%s.pid'
 
+COREDNS_BIN = '/usr/local/bin/coredns'
+COREDNS_PID = '/var/run/coredns/coredns-%s.pid'
 
 # run command in namespace
-def ns_exec(host, command):
+def ns_exec(host, command, background=False):
     cmd = ['ip', 'netns', 'exec', host] + command
     logger.debug(' '.join(cmd))
-    stdout, stderr = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE).communicate()
-    if len(stderr) != 0:
-        logger.debug(stderr.decode('utf-8'))
-    return stdout.decode('utf-8')
+    if not background:
+        stdout, stderr = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE).communicate()
+        return stdout.decode('utf-8')
+    else:
+        subprocess.Popen(cmd)
+        return ''
 
 
 # create namespace for host
@@ -130,6 +134,12 @@ def start_bgpd(host, config):
     ns_exec(host, ['touch', sock_file])
     ns_exec(host, [BGPD_BIN, '-d', '-f', config, '-z', sock_file, '-i', pid_file])
 
+# start coredns
+def start_coredns(host, config):
+    pid_file = COREDNS_PID % host
+    ns_exec(host, ['mkdir', '-p', '/'.join(pid_file.split('/')[:-1])])
+    ns_exec(host, ['touch', pid_file])
+    ns_exec(host, [COREDNS_BIN, '-conf', config, '-pidfile', pid_file, '-quiet'], background=True)
 
 # list all namespaces
 def list_hosts():
@@ -147,7 +157,7 @@ def list_hosts():
             hostname = line.split(' ')[0]
         hosts.append(hostname)
 
-    return hosts
+    return filter(None, hosts)
 
 
 # list all pids inside a namespace
@@ -244,6 +254,8 @@ def main(config):
                 start_zebra(host['name'], host['services']['zebra']['config'])
             if 'bgpd' in host['services']:
                 start_bgpd(host['name'], host['services']['bgpd']['config'])
+            if 'coredns' in host['services']:
+                start_coredns(host['name'], host['services']['coredns']['config'])
         if 'cmd' in host:
             for cmd in host['cmd']:
                 ns_exec(host['name'], cmd)
