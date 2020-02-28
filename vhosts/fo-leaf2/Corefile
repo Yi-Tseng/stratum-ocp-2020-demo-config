@@ -1,0 +1,8 @@
+cdn.onf.org:53 {
+    hosts {
+        10.0.4.1 cdn.opennetworking.org
+    }
+}
+.:53 {
+    forward . 8.8.8.8
+}
