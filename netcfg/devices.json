@@ -16,7 +16,12 @@
         "managementAddress": "grpc://10.128.13.124:28000?device_id=1",
         "driver": "stratum-fpm",
         "pipeconf": "org.onosproject.stratum-pipeconf.fpm-odtn",
-        "manufacturer": "Edgecore Networks"
+        "manufacturer": "Edgecore Networks",
+        "locType": "grid",
+        "gridX": 0,
+        "gridY": 600,
+        "rackAddress": 1,
+        "roles": "spine"
       }
     },
     "device:fo_spine_2": {
@@ -32,10 +37,15 @@
       },
       "basic": {
         "name": "cassini-2",
-        "managementAddress": "grpc://10.128.200.3:28001?device_id=1",
+        "managementAddress": "grpc://10.128.13.126:28000?device_id=1",
         "driver": "stratum-fpm",
         "pipeconf": "org.onosproject.stratum-pipeconf.fpm-odtn",
-        "manufacturer": "Edgecore Networks"
+        "manufacturer": "Edgecore Networks",
+        "locType": "grid",
+        "gridX": 200,
+        "gridY": 600,
+        "rackAddress": 1,
+        "roles": "spine"
       }
     },
     "device:co_spine_1": {
@@ -54,7 +64,12 @@
         "managementAddress": "grpc://10.128.13.123:28000?device_id=1",
         "driver": "stratum-fpm",
         "pipeconf": "org.onosproject.stratum-pipeconf.fpm-odtn",
-        "manufacturer": "Edgecore Networks"
+        "manufacturer": "Edgecore Networks",
+        "locType": "grid",
+        "gridX": 500,
+        "gridY": 200,
+        "rackAddress": 1,
+        "roles": "spine"
       }
     },
     "device:co_spine_2": {
@@ -70,10 +85,15 @@
       },
       "basic": {
         "name": "cassini-1",
-        "managementAddress": "grpc://10.128.13.125:28001?device_id=1",
+        "managementAddress": "grpc://10.128.13.125:28000?device_id=1",
         "driver": "stratum-fpm",
         "pipeconf": "org.onosproject.stratum-pipeconf.fpm-odtn",
-        "manufacturer": "Edgecore Networks"
+        "manufacturer": "Edgecore Networks",
+        "locType": "grid",
+        "gridX": 700,
+        "gridY": 200,
+        "rackAddress": 1,
+        "roles": "spine"
       }
     },
     "device:fo_leaf_1": {
@@ -89,10 +109,15 @@
       },
       "basic": {
         "name": "bf2556x-1",
-        "managementAddress": "grpc://10.128.13.122:28000?device_id=1",
+        "managementAddress": "grpc://10.128.13.121:28000?device_id=1",
         "driver": "stratum-tofino",
         "pipeconf": "org.opencord.fabric.tofino.montara_sde_9_0_0",
-        "manufacturer": "STORDIS GmbH"
+        "manufacturer": "STORDIS GmbH",
+        "locType": "grid",
+        "gridX": -100,
+        "gridY": 800,
+        "rackAddress": 1,
+        "roles": "leaf"
       }
     },
     "device:fo_leaf_2": {
@@ -108,10 +133,15 @@
       },
       "basic": {
         "name": "bf2556x-2",
-        "managementAddress": "grpc://10.128.13.121:28000?device_id=1",
+        "managementAddress": "grpc://10.128.13.122:28000?device_id=1",
         "driver": "stratum-tofino",
         "pipeconf": "org.opencord.fabric.tofino.montara_sde_9_0_0",
-        "manufacturer": "STORDIS GmbH"
+        "manufacturer": "STORDIS GmbH",
+        "locType": "grid",
+        "gridX": 100,
+        "gridY": 800,
+        "rackAddress": 1,
+        "roles": "leaf"
       }
     },
     "device:fo_leaf_3": {
@@ -130,7 +160,12 @@
         "managementAddress": "grpc://10.128.13.203:28000?device_id=1",
         "driver": "stratum-fpm",
         "pipeconf": "org.onosproject.stratum-pipeconf.fpm",
-        "manufacturer": "Edgecore Networks"
+        "manufacturer": "Edgecore Networks",
+        "locType": "grid",
+        "gridX": 300,
+        "gridY": 800,
+        "rackAddress": 1,
+        "roles": "leaf"
       }
     },
     "device:fo_leaf_4": {
@@ -149,12 +184,17 @@
         "managementAddress": "grpc://10.128.13.111:28000?device_id=1",
         "driver": "stratum-tofino",
         "pipeconf": "org.opencord.fabric.tofino.montara_sde_9_0_0",
-        "manufacturer": "Inventec Corporation"
+        "manufacturer": "Inventec Corporation",
+        "locType": "grid",
+        "gridX": 500,
+        "gridY": 800,
+        "rackAddress": 1,
+        "roles": "leaf"
       }
     },
     "device:co_leaf_1": {
       "segmentrouting": {
-        "name": "BF60604X",
+        "name": "BF6064X",
         "ipv4NodeSid": 231,
         "ipv4Loopback": "192.168.0.231",
         "ipv6NodeSid": 241,
@@ -164,11 +204,16 @@
         "adjacencySids": []
       },
       "basic": {
-        "name": "BF60604X",
+        "name": "BF6064X",
         "managementAddress": "grpc://10.128.13.116:28000?device_id=1",
         "driver": "stratum-tofino",
         "pipeconf": "org.opencord.fabric.tofino.mavericks_sde_9_0_0",
-        "manufacturer": "STORDIS GmbH"
+        "manufacturer": "STORDIS GmbH",
+        "locType": "grid",
+        "gridX": 600,
+        "gridY": 400,
+        "rackAddress": 1,
+        "roles": "leaf"
       }
     },
     "device:co_leaf_2": {
@@ -187,7 +232,12 @@
         "managementAddress": "grpc://10.128.13.241:28000?device_id=1",
         "driver": "stratum-fpm",
         "pipeconf": "org.onosproject.stratum-pipeconf.fpm",
-        "manufacturer": "Edgecore Networks"
+        "manufacturer": "Edgecore Networks",
+        "locType": "grid",
+        "gridX": 800,
+        "gridY": 400,
+        "rackAddress": 1,
+        "roles": "leaf"
       }
     },
     "device:co_leaf_3": {
@@ -206,7 +256,12 @@
         "managementAddress": "grpc://10.128.13.113:28000?device_id=1",
         "driver": "stratum-fpm",
         "pipeconf": "org.onosproject.stratum-pipeconf.fpm",
-        "manufacturer": "Dell Inc"
+        "manufacturer": "Dell Inc",
+        "locType": "grid",
+        "gridX": 1000,
+        "gridY": 400,
+        "rackAddress": 1,
+        "roles": "leaf"
       }
     }
   }

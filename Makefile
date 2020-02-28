@@ -74,15 +74,12 @@ mn-log:
 netcfg:
 	$(info *** Pushing netcfg.json to ONOS...)
 	${onos_curl} -X POST -H 'Content-Type:application/json' \
-		${onos_url}/v1/network/configuration -d@./mininet/netcfg.json
-	@echo
-
-netcfg-hw:
-	$(info *** Pushing netcfg.json to ONOS...)
+		${onos_url}/v1/network/configuration -d@./mininet/demo/ports.json
 	${onos_curl} -X POST -H 'Content-Type:application/json' \
-		${onos_url}/v1/network/configuration -d@./mininet/netcfg-hw.json
+		${onos_url}/v1/network/configuration -d@./mininet/demo/hosts.json
+	${onos_curl} -X POST -H 'Content-Type:application/json' \
+		${onos_url}/v1/network/configuration -d@./mininet/demo/devices.json
 	@echo
-
 
 reset: stop
 	-rm -rf ./tmp
@@ -155,3 +152,5 @@ fabric-tofino-pipeconf:
 
 fabric-tofino-pipeconf-install:
 	$(MAKE) -C fabric-tofino pipeconf-install ONOS_HOST=${onos_host}
+
+

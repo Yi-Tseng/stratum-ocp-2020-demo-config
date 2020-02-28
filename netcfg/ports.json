@@ -1,0 +1,70 @@
+{
+  "ports": {
+    "device:fo_leaf_1/64": {
+      "interfaces": [
+        {
+          "name": "h1",
+          "ips": [
+            "10.0.1.254/24"
+          ],
+          "vlan-untagged": 10
+        }
+      ]
+    },
+    "device:fo_leaf_1/65": {
+      "interfaces": [
+        {
+          "name": "h2",
+          "ips": [
+            "10.0.1.254/24"
+          ],
+          "vlan-untagged": 10
+        }
+      ]
+    },
+    "device:fo_leaf_2/64": {
+      "interfaces": [
+        {
+          "name": "h3",
+          "ips": [
+            "10.0.2.254/24"
+          ],
+          "vlan-untagged": 20
+        }
+      ]
+    },
+    "device:fo_leaf_2/65": {
+      "interfaces": [
+        {
+          "name": "h4",
+          "ips": [
+            "10.0.2.254/24"
+          ],
+          "vlan-untagged": 20
+        }
+      ]
+    },
+    "device:co_leaf_1/64": {
+      "interfaces": [
+        {
+          "name": "h5",
+          "ips": [
+            "10.1.1.254/24"
+          ],
+          "vlan-untagged": 30
+        }
+      ]
+    },
+    "device:co_leaf_1/65": {
+      "interfaces": [
+        {
+          "name": "h6",
+          "ips": [
+            "10.1.1.254/24"
+          ],
+          "vlan-untagged": 30
+        }
+      ]
+    }
+  }
+}
