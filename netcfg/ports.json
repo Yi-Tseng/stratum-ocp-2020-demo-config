@@ -65,6 +65,39 @@
           "vlan-untagged": 30
         }
       ]
+    },
+    "device:co_leaf_3/62": {
+      "interfaces": [
+        {
+          "name": "upstream-router",
+          "ips": [
+            "10.1.3.254/24"
+          ],
+          "vlan-untagged": 60
+        }
+      ]
+    },
+    "device:fo_leaf_3/4": {
+      "interfaces": [
+        {
+          "name": "fo-svc-a",
+          "ips": [
+            "10.0.3.254/24"
+          ],
+          "vlan-untagged": 70
+        }
+      ]
+    },
+    "device:fo_leaf_4/176": {
+      "interfaces": [
+        {
+          "name": "fo-svc-b",
+          "ips": [
+            "10.0.4.254/24"
+          ],
+          "vlan-untagged": 70
+        }
+      ]
     }
   }
 }
