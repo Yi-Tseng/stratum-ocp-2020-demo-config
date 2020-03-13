@@ -22,6 +22,17 @@
         }
       ]
     },
+    "device:fo_leaf_1/135": {
+      "interfaces": [
+        {
+          "name": "lapatop",
+          "ips": [
+            "10.0.1.254/24"
+          ],
+          "vlan-untagged": 10
+        }
+      ]
+    },
     "device:fo_leaf_2/64": {
       "interfaces": [
         {
@@ -95,7 +106,18 @@
           "ips": [
             "10.0.4.254/24"
           ],
-          "vlan-untagged": 70
+          "vlan-untagged": 80
+        }
+      ]
+    },
+    "device:co_leaf_2/62": {
+      "interfaces": [
+        {
+          "name": "co-svc-a",
+          "ips": [
+            "10.1.2.254/24"
+          ],
+          "vlan-untagged": 62
         }
       ]
     }

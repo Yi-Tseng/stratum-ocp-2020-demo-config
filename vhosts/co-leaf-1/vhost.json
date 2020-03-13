@@ -3,7 +3,7 @@
         {
             "name": "h3",
             "interfaces": [
-                { "name": "enp4s0f0", "address": "dhcp" }
+                { "name": "enp4s0f0", "address": "10.1.1.1/24", "gateway": "10.1.1.254" }
             ],
             "cmd": [
                 ["ip", "addr"],
@@ -13,7 +13,7 @@
         {
             "name": "h4",
             "interfaces": [
-                { "name": "enp4s0f1", "address": "dhcp" }
+                { "name": "enp4s0f1", "address": "10.1.1.2/24", "gateway": "10.1.1.254" }
             ],
             "cmd": [
                 ["ip", "addr"],

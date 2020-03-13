@@ -79,6 +79,36 @@
                 "rackAddress": 1,
                 "roles": "host"
             }
+        },
+        "84:C7:8F:00:82:02/None": {
+            "basic": {
+                "name": "H5",
+                "locType": "grid",
+                "gridX": 500,
+                "gridY": 500,
+                "rackAddress": 1,
+                "roles": "host"
+            }
+        },
+        "84:C7:8F:00:82:03/None": {
+            "basic": {
+                "name": "H6",
+                "locType": "grid",
+                "gridX": 600,
+                "gridY": 500,
+                "rackAddress": 1,
+                "roles": "host"
+            }
+        },
+        "58:EF:68:7B:B6:29/None": {
+            "basic": {
+                "name": "HLaptop",
+                "locType": "grid",
+                "gridX": -200,
+                "gridY": 900,
+                "rackAddress": 1,
+                "roles": "host"
+            }
         }
     }
 }
