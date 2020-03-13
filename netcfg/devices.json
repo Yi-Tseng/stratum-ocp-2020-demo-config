@@ -5,7 +5,7 @@
         "name": "cassini-4",
         "ipv4NodeSid": 101,
         "ipv4Loopback": "192.168.0.101",
-        "ipv6NodeSid": 112,
+        "ipv6NodeSid": 111,
         "ipv6Loopback": "2000::c0a8:0101",
         "routerMac": "00:00:00:00:01:01",
         "isEdgeRouter": false,
